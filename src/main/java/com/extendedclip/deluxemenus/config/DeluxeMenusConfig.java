@@ -12,21 +12,7 @@ import com.extendedclip.deluxemenus.menu.MenuHolder;
 import com.extendedclip.deluxemenus.menu.MenuItem;
 import com.extendedclip.deluxemenus.menu.options.MenuItemOptions;
 import com.extendedclip.deluxemenus.menu.options.MenuOptions;
-import com.extendedclip.deluxemenus.requirement.HasExpRequirement;
-import com.extendedclip.deluxemenus.requirement.HasItemRequirement;
-import com.extendedclip.deluxemenus.requirement.HasMetaRequirement;
-import com.extendedclip.deluxemenus.requirement.HasMoneyRequirement;
-import com.extendedclip.deluxemenus.requirement.HasPermissionRequirement;
-import com.extendedclip.deluxemenus.requirement.HasPermissionsRequirement;
-import com.extendedclip.deluxemenus.requirement.InputResultRequirement;
-import com.extendedclip.deluxemenus.requirement.IsNearRequirement;
-import com.extendedclip.deluxemenus.requirement.IsObjectRequirement;
-import com.extendedclip.deluxemenus.requirement.JavascriptRequirement;
-import com.extendedclip.deluxemenus.requirement.RegexMatchesRequirement;
-import com.extendedclip.deluxemenus.requirement.Requirement;
-import com.extendedclip.deluxemenus.requirement.RequirementList;
-import com.extendedclip.deluxemenus.requirement.RequirementType;
-import com.extendedclip.deluxemenus.requirement.StringLengthRequirement;
+import com.extendedclip.deluxemenus.requirement.*;
 import com.extendedclip.deluxemenus.requirement.wrappers.ItemWrapper;
 import com.extendedclip.deluxemenus.utils.DebugLevel;
 import com.extendedclip.deluxemenus.utils.ItemUtils;
@@ -1013,6 +999,15 @@ public class DeluxeMenusConfig {
                         req = new HasMoneyRequirement(plugin, c.getDouble(rPath + ".amount"), invert, c.getString(rPath + ".placeholder", null));
                     } else {
                         plugin.debug(DebugLevel.HIGHEST, Level.WARNING, "Has Money requirement at path: " + rPath + " does not contain an amount: entry");
+                    }
+                    break;
+                case HAS_COINS:
+                case DOES_NOT_HAVE_COINS:
+                    if (c.contains(rPath + ".amount") || c.contains(rPath + ".placeholder")) {
+                        invert = type == RequirementType.DOES_NOT_HAVE_COINS;
+                        req = new HasCoinsRequirement(plugin, c.getInt(rPath + ".amount"), invert, c.getString(rPath + ".placeholder", null));
+                    } else {
+                        plugin.debug(DebugLevel.HIGHEST, Level.WARNING, "Has Coins requirement at path: " + rPath + " does not contain an amount: entry");
                     }
                     break;
                 case HAS_EXP:

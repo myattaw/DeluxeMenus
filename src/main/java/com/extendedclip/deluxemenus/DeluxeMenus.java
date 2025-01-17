@@ -6,17 +6,7 @@ import com.extendedclip.deluxemenus.config.DeluxeMenusConfig;
 import com.extendedclip.deluxemenus.config.GeneralConfig;
 import com.extendedclip.deluxemenus.dupe.DupeFixer;
 import com.extendedclip.deluxemenus.dupe.MenuItemMarker;
-import com.extendedclip.deluxemenus.hooks.BaseHeadHook;
-import com.extendedclip.deluxemenus.hooks.ExecutableBlocksHook;
-import com.extendedclip.deluxemenus.hooks.ExecutableItemsHook;
-import com.extendedclip.deluxemenus.hooks.HeadDatabaseHook;
-import com.extendedclip.deluxemenus.hooks.ItemHook;
-import com.extendedclip.deluxemenus.hooks.ItemsAdderHook;
-import com.extendedclip.deluxemenus.hooks.MMOItemsHook;
-import com.extendedclip.deluxemenus.hooks.NamedHeadHook;
-import com.extendedclip.deluxemenus.hooks.OraxenHook;
-import com.extendedclip.deluxemenus.hooks.TextureHeadHook;
-import com.extendedclip.deluxemenus.hooks.VaultHook;
+import com.extendedclip.deluxemenus.hooks.*;
 import com.extendedclip.deluxemenus.listener.PlayerListener;
 import com.extendedclip.deluxemenus.menu.Menu;
 import com.extendedclip.deluxemenus.menu.options.HeadType;
@@ -62,6 +52,7 @@ public class DeluxeMenus extends JavaPlugin {
     private BukkitAudiences audiences;
 
     private VaultHook vaultHook;
+    private CoinCurrencyHook coinCurrencyHook;
 
     private ItemStack head;
     private Map<String, ItemHook> itemHooks;
@@ -95,6 +86,7 @@ public class DeluxeMenus extends JavaPlugin {
         this.audiences = BukkitAudiences.create(this);
 
         hookIntoVault();
+        hookIntoCoinCurrency();
         setUpItemHooks();
 
         this.menuConfig = new DeluxeMenusConfig(this);
@@ -200,6 +192,10 @@ public class DeluxeMenus extends JavaPlugin {
         return vaultHook;
     }
 
+    public CoinCurrencyHook getCoinCurrencyHook() {
+        return coinCurrencyHook;
+    }
+
     public PersistentMetaHandler getPersistentMetaHandler() {
         return persistentMetaHandler;
     }
@@ -248,6 +244,22 @@ public class DeluxeMenus extends JavaPlugin {
         this.debug(DebugLevel.HIGHEST, Level.WARNING, "Could not hook into Vault!",
                 "DeluxeMenus will continue to work but some features (such as the 'has money' requirement) may not be available.");
     }
+
+    private void hookIntoCoinCurrency() {
+        if (!Bukkit.getPluginManager().isPluginEnabled("CoinCurrency")) {
+            return;
+        }
+        this.coinCurrencyHook = new CoinCurrencyHook();
+
+        if (this.coinCurrencyHook.hooked()) {
+            this.debug(DebugLevel.HIGHEST, Level.INFO, "Successfully hooked into CoinCurrency!");
+            return;
+        }
+
+        this.debug(DebugLevel.HIGHEST, Level.WARNING, "Could not hook into CoinCurrency!",
+                "DeluxeMenus will continue to work but some features (such as the 'has coins' requirement) may not be available.");
+    }
+
 
     @SuppressWarnings("deprecation")
     private void setUpItemHooks() {

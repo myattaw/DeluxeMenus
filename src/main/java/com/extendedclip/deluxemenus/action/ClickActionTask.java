@@ -277,6 +277,21 @@ public class ClickActionTask extends BukkitRunnable {
                     );
                 }
                 break;
+            case TAKE_COINS:
+                if (plugin.getCoinCurrencyHook() == null || !plugin.getCoinCurrencyHook().hooked()) {
+                    plugin.debug(DebugLevel.HIGHEST, Level.WARNING, "CoinCurrency not hooked! Cannot take coins!");
+                    break;
+                }
+
+                try {
+                    plugin.getCoinCurrencyHook().takeCoins(player, Integer.parseInt(executable));
+                } catch (final NumberFormatException exception) {
+                    plugin.debug(
+                            DebugLevel.HIGHEST,
+                            Level.WARNING,
+                            "Amount for take money action: " + executable + ", is not a valid number!"
+                    );
+                }
 
             case GIVE_MONEY:
                 if (plugin.getVault() == null || !plugin.getVault().hooked()) {

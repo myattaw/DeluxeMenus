@@ -35,6 +35,8 @@ public enum ActionType {
   BROADCAST_WORLD_SOUND("[broadcastsoundworld]", "Broadcast a sound to the player's world", "- '[broadcastsoundworld]"),
   PLAY_SOUND("[sound]", "Play a sound for a the specific player", "- '[sound]"),
   TAKE_MONEY("[takemoney]", "Take money from a player (requires Vault)", "- '[takemoney] <amount>"),
+  TAKE_COINS("[takecoins]", "Take coins from a player (requires CoinCurrency)", "- '[takecoins] <amount>"),
+
   GIVE_MONEY("[givemoney]", "Give money to a player (requires Vault)", "- '[givemoney] <amount>"),
   TAKE_EXP("[takeexp]", "Take exp points/levels from a player", "- '[takeexp] <amount>L'"),
   GIVE_EXP("[giveexp]", "Give exp points/levels to a player", "- '[giveexp] <amount>L'"),

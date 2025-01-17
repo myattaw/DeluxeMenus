@@ -42,6 +42,8 @@ dependencies {
     implementation(libs.adventure.minimessage)
 
     compileOnly("org.jetbrains:annotations:23.0.0")
+
+    compileOnly(files("libs/CoinCurrency 1.0.1.jar"))
 }
 
 tasks {

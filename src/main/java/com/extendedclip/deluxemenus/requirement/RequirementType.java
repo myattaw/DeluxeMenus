@@ -29,6 +29,13 @@ public enum RequirementType {
   DOES_NOT_HAVE_MONEY(Arrays.asList("!has money", "!hasmoney", "!money"),
       "Checks if a player does not have enough money (Vault required)",
       Arrays.asList("amount", "placeholder")),
+
+  HAS_COINS(Arrays.asList("has coins", "hascoins", "coins"),
+          "Checks if a player has enough coins (CoinCurrency required)",
+          Arrays.asList("amount", "placeholder")),
+  DOES_NOT_HAVE_COINS(Arrays.asList("!has coins", "!hascoins", "!coins"),
+          "Checks if a player does not have enough coins (CoinCurrency required)",
+          Arrays.asList("amount", "placeholder")),
   HAS_EXP(Arrays.asList("has exp", "hasexp", "exp"),
       "Checks if a player has enough exp",
       Arrays.asList("amount")),
